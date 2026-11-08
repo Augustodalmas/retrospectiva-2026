@@ -1,0 +1,84 @@
+/* Estilos do app (fora do design system). */
+html, body, #root { height: 100%; }
+body { background: var(--color-surface); -webkit-tap-highlight-color: transparent; }
+a { color: var(--color-accent-700); }
+a:hover { color: var(--color-accent-800); }
+input[type=range] { accent-color: var(--color-accent); }
+button { font-family: inherit; }
+
+@keyframes retroPulse { 0%, 100% { transform: scale(.82) } 50% { transform: scale(1.08) } }
+@keyframes retroPop { 0% { transform: scale(.6); opacity: 0 } 70% { transform: scale(1.04); opacity: 1 } 100% { transform: scale(1); opacity: 1 } }
+
+.app {
+  position: relative; max-width: 430px; height: 100dvh; margin: 0 auto; overflow: hidden;
+  background: var(--color-bg); color: var(--color-text); font-family: var(--font-body);
+}
+@media (min-width: 600px) { .app { box-shadow: var(--shadow-lg); } }
+.tela { position: absolute; inset: 0; display: flex; flex-direction: column; box-sizing: border-box; }
+.tela.rola { overflow-y: auto; }
+.tela.escura { background: var(--color-neutral-900); color: var(--color-neutral-100); }
+.btn-escuro { background: var(--color-neutral-800); color: var(--color-neutral-100); }
+.btn-escuro:hover { background: var(--color-neutral-700); }
+
+/* Tartaruga (src/Tartaruga.jsx). Origens em unidades do viewBox do SVG. */
+.tart .t-corpo { transform-origin: 262px 420px; }
+.tart .t-sombra { transform-origin: 262px 426px; }
+.tart .t-cabeca { transform-origin: 380px 322px; }
+.tart .t-olho { transform-origin: 452px 240px; animation: tartPisca 4.2s infinite; }
+.tart .t-rabo { transform-origin: 110px 328px; }
+.tart .t-pata { transform-box: fill-box; transform-origin: 50% 10%; }
+.tart .t-pensa circle { animation: tartPensa 1.2s ease-in-out infinite; }
+.tart .t-pensa circle:nth-child(2) { animation-delay: .2s; }
+.tart .t-pensa circle:nth-child(3) { animation-delay: .4s; }
+
+.tart-parada .t-corpo { animation: tartRespira 3s ease-in-out infinite; }
+.tart-parada .t-cabeca { animation: tartOlha 6s ease-in-out infinite; }
+.tart-fala .t-cabeca { animation: tartFala .5s ease-in-out 2; }
+.tart-fala .t-corpo { animation: tartRespira 3s ease-in-out infinite; }
+.tart-anda .t-corpo { animation: tartRespira .5s ease-in-out infinite; }
+.tart-anda .t-pata-a { animation: tartPata .5s ease-in-out infinite; }
+.tart-anda .t-pata-b { animation: tartPata .5s ease-in-out -.25s infinite; }
+.tart-anda .t-rabo { animation: tartRabo .5s ease-in-out infinite; }
+.tart-pula .t-corpo { animation: tartPulo .9s cubic-bezier(.3,.7,.4,1) infinite; }
+.tart-pula .t-sombra { animation: tartSombra .9s cubic-bezier(.3,.7,.4,1) infinite; }
+.tart-pula .t-rabo { animation: tartRabo .3s ease-in-out infinite; }
+
+.tart-treme .t-corpo { animation: tartTreme .16s linear infinite; }
+.tart-treme .t-cabeca { animation: tartFala .4s ease-in-out infinite; }
+.tart-susto .t-corpo { animation: tartSusto .6s cubic-bezier(.3,.7,.4,1) both; }
+.tart-susto .t-cabeca { animation: tartRecua .6s ease-out both; }
+.tart-murcha .t-cabeca { animation: tartMurcha .8s ease-out both; }
+.tart-murcha .t-corpo { animation: tartRespira 3.6s ease-in-out infinite; }
+.tart-zen .t-corpo { animation: tartZen 2.4s ease-in-out infinite; }
+.tart-zen .t-sombra { animation: tartZenSombra 2.4s ease-in-out infinite; }
+.tart .t-sobe { animation: tartSobe 1.6s ease-out infinite; }
+.tart .t-lagrima { animation: tartLagrima 1.2s ease-in infinite; }
+
+@keyframes tartTreme { 0%, 100% { transform: rotate(0) } 25% { transform: rotate(-2deg) translateY(-3px) } 75% { transform: rotate(2deg) } }
+@keyframes tartSusto { 0% { transform: translate(0, 0) } 35% { transform: translate(-14px, -34px) rotate(-5deg) } 70%, 100% { transform: translate(0, 0) } }
+@keyframes tartRecua { 0% { transform: rotate(0) } 35%, 100% { transform: rotate(-12deg) } }
+@keyframes tartMurcha { 0% { transform: rotate(0) } 100% { transform: rotate(14deg) } }
+@keyframes tartZen { 0%, 100% { transform: translateY(-6px) } 50% { transform: translateY(-22px) } }
+@keyframes tartZenSombra { 0%, 100% { transform: scaleX(.9); opacity: .4 } 50% { transform: scaleX(.75); opacity: .25 } }
+@keyframes tartSobe { 0% { transform: translateY(10px); opacity: 0 } 30% { opacity: 1 } 100% { transform: translateY(-30px); opacity: 0 } }
+@keyframes tartLagrima { 0% { transform: translateY(0); opacity: 0 } 20% { opacity: 1 } 100% { transform: translateY(40px); opacity: 0 } }
+@keyframes tartRespira { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-5px) } }
+@keyframes tartPisca { 0%, 93%, 100% { transform: scaleY(1) } 96% { transform: scaleY(.1) } }
+@keyframes tartOlha { 0%, 40%, 100% { transform: rotate(0) } 50%, 70% { transform: rotate(-7deg) } }
+@keyframes tartFala { 0%, 100% { transform: rotate(0) } 30% { transform: rotate(-10deg) } 70% { transform: rotate(5deg) } }
+@keyframes tartPata { 0%, 100% { transform: rotate(-14deg) } 50% { transform: rotate(14deg) } }
+@keyframes tartRabo { 0%, 100% { transform: rotate(-8deg) } 50% { transform: rotate(10deg) } }
+@keyframes tartPulo { 0%, 100% { transform: translateY(0) scale(1.04, .96) } 15% { transform: translateY(0) scale(1) } 45% { transform: translateY(-70px) rotate(-4deg) } 75% { transform: translateY(0) } }
+@keyframes tartSombra { 0%, 15%, 75%, 100% { transform: scaleX(1); opacity: .45 } 45% { transform: scaleX(.6); opacity: .2 } }
+@keyframes tartPensa { 0%, 100% { opacity: .25 } 50% { opacity: 1 } }
+
+/* Parada de vez (dentro dos cards, que viram PNG). */
+.tart-fixa, .tart-fixa * { animation: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tart * { animation: none !important; }
+}
+
+/* Desktop (>= 900px): o app ocupa a janela inteira; os layouts vêm de Desktop.jsx. */
+.app.desk { max-width: none; box-shadow: none; }
+.app.desk .tela.rola { overflow-y: auto; }

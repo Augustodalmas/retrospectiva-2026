@@ -1,0 +1,36 @@
+name: Deploy
+
+# Push na main gera o build e publica em retro.dalmasstudio.com.br.
+# Usa os mesmos secrets da landing (VPS_HOST, VPS_USER, VPS_SSH_KEY).
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      # Apaga a versão anterior antes de copiar (os arquivos de assets/ mudam de nome a cada build).
+      - name: Deploy via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "dist/*"
+          strip_components: 1
+          rm: true
+          target: "/home/dalmas/apps/dalmasstudio/retro"
